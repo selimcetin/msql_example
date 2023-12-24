@@ -1,13 +1,24 @@
 const express = require("express");
-const { getSqlObject } = require("./utils/sqlConnection");
+const { connectToDatabase, pool, sql } = require("./utils/sqlConnection");
+const { errorHandler } = require("./middleware/errorHandler");
+const { tryCatch } = require("./utils/tryCatch");
 
 const app = express();
-const sql = getSqlObject();
 
-app.get("/", (req, res) => {
-  res.send("Hello World!");
-});
+app.get(
+  "/api/veterinary",
+  tryCatch(async (req, res) => {
+    await connectToDatabase();
+    console.log("pool", pool);
+
+    const request = new sql.Request(pool);
+    const result = await request.query("SELECT * FROM dbo.VeterinaryPractice");
+    return res.json(result.recordset);
+  })
+);
 
 app.listen(process.env.PORT, () => {
   console.log(`Server is listening at http://localhost:${process.env.PORT}`);
 });
+
+app.use(errorHandler);

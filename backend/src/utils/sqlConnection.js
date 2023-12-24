@@ -12,22 +12,20 @@ const config = {
   },
 };
 
-const connectSql = async () => {
+const pool = new sql.ConnectionPool(config);
+
+const connectToDatabase = async () => {
   try {
-    console.log(config);
-    await sql.connect(config);
-    console.log("Connected to SQL Server");
+    await pool.connect();
+    console.log("Connected to Database.");
   } catch (err) {
-    console.error("Error connecting to SQL Server:", err);
+    console.error("Error connecting to Database:", err);
     throw err; // Re-throw the error to be handled by the caller
   }
 };
 
-const getSqlObject = async () => {
-  await connectSql();
-  return sql;
-};
-
 module.exports = {
-  getSqlObject,
+  connectToDatabase,
+  pool,
+  sql,
 };
