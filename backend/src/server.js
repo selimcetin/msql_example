@@ -9,7 +9,6 @@ app.get(
   "/api/veterinary",
   tryCatch(async (req, res) => {
     await connectToDatabase();
-    console.log("pool", pool);
 
     const request = new sql.Request(pool);
     const result = await request.query("SELECT * FROM dbo.VeterinaryPractice");
