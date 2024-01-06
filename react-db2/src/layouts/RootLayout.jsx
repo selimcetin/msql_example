@@ -1,17 +1,16 @@
 import React from "react";
-import { NavLink, Outlet } from "react-router-dom";
+import { Outlet } from "react-router-dom";
+import { NavLink } from "@mantine/core";
 
 const RootLayout = () => {
   return (
     <div>
       <header>
-        <nav>
-          <h1>DB2 Project</h1>
-          <NavLink to="/">Home</NavLink>
-          <NavLink to="practices">Practices</NavLink>
-          <NavLink to="customers">Customers</NavLink>
-          <NavLink to="pets">Pets</NavLink>
-        </nav>
+        <h1>DB2 Project</h1>
+        <NavLink href="/" label="Home" />
+        <NavLink href="practices" label="Veterinary Practices" />
+        <NavLink href="customers" label="Customers" />
+        <NavLink href="pets" label="Pets" />
       </header>
 
       <main>
