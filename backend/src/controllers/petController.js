@@ -1,13 +1,18 @@
 const {
-  executeSqlQuery,
+  getSelectStatement,
   getSelectStatementWithFilter,
   getDeleteStatementWithFilter,
   getUpdateStatement,
+  executeSqlQuery,
   executeStoredProcedure,
 } = require("../controllers/sqlController");
 
 const tableName = "dbo.Pets";
 const idColumnName = "PetID";
+
+const getAllPets = async (req, res) => {
+  return executeSqlQuery(res, getSelectStatement(tableName));
+};
 
 const getPetById = async (req, res) => {
   return executeSqlQuery(
@@ -35,6 +40,7 @@ const insertPet = async (req, res) => {
 };
 
 module.exports = {
+  getAllPets,
   getPetById,
   insertPet,
   deletePetById,

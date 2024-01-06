@@ -4,7 +4,7 @@ const { errorHandler } = require("./middlewares/errorHandler");
 const { logger } = require("./middlewares/logger");
 
 const app = express();
-app.use(express.json()); // needed for using req.body
+app.use(express.json()); // needed for using req.body in middlewares
 
 const customerRouter = require("./routes/customers");
 const petRouter = require("./routes/pets");

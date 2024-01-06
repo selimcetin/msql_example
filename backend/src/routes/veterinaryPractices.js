@@ -9,11 +9,14 @@ const {
 const { tryCatch } = require("../utils/tryCatch");
 
 const {
+  getAllVeterinaryPractices,
   getVeterinaryPracticeById,
   deleteVeterinaryPracticeById,
   updateVeterinaryPracticeById,
   insertVeterinaryPractice,
 } = require("../controllers/veterinaryPracticeController");
+
+router.get("/", tryCatch(getAllVeterinaryPractices));
 
 router
   .route("/:id")
@@ -29,10 +32,5 @@ router.post(
   validateSchema(veterinaryPracticeSchema),
   tryCatch(insertVeterinaryPractice)
 );
-
-router.param("id", (req, res, next, id) => {
-  console.log(`inside veterinaryPractices ${id} route`);
-  next();
-});
 
 module.exports = { router };

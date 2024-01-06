@@ -1,4 +1,3 @@
-const { table } = require("console");
 const { sql, pool } = require("../utils/sqlConnection");
 
 const executeSqlQuery = async (res, sqlStatement) => {
@@ -24,8 +23,11 @@ const executeStoredProcedure = async (req, res, spName) => {
   return res.json(result.recordset);
 };
 
+const getSelectStatement = (tableName) => {
+  return `SELECT * FROM ${tableName}`;
+};
+
 const getSelectStatementWithFilter = (tableName, columnName, filterValue) => {
-  console.log(`SELECT * FROM ${tableName} WHERE ${columnName}=${filterValue}`);
   return `SELECT * FROM ${tableName} WHERE ${columnName}=${filterValue}`;
 };
 
@@ -52,15 +54,14 @@ const getUpdateStatement = (id, jsonUpdateObject, tableName, idColumnName) => {
     sqlSetQuery += count !== 0 ? "," : "";
   }
 
-  console.log(`UPDATE ${tableName} ${sqlSetQuery} WHERE ${idColumnName}=${id}`);
-
   return `UPDATE ${tableName} ${sqlSetQuery} WHERE ${idColumnName}=${id}`;
 };
 
 module.exports = {
-  executeSqlQuery,
-  executeStoredProcedure,
+  getSelectStatement,
   getSelectStatementWithFilter,
   getDeleteStatementWithFilter,
   getUpdateStatement,
+  executeSqlQuery,
+  executeStoredProcedure,
 };
