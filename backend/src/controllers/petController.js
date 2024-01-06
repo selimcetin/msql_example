@@ -6,37 +6,37 @@ const {
   executeStoredProcedure,
 } = require("../controllers/sqlController");
 
-const tableName = "dbo.Customers";
-const idColumnName = "CustomerID";
+const tableName = "dbo.Pets";
+const idColumnName = "PetID";
 
-const getCustomerById = async (req, res) => {
+const getPetById = async (req, res) => {
   return executeSqlQuery(
     res,
     getSelectStatementWithFilter(tableName, idColumnName, req.params.id)
   );
 };
 
-const deleteCustomerById = async (req, res) => {
+const deletePetById = async (req, res) => {
   return executeSqlQuery(
     res,
     getDeleteStatementWithFilter(tableName, idColumnName, req.params.id)
   );
 };
 
-const updateCustomerById = async (req, res) => {
+const updatePetById = async (req, res) => {
   return executeSqlQuery(
     res,
     getUpdateStatement(req.params.id, req.body, tableName, idColumnName)
   );
 };
 
-const insertCustomer = async (req, res) => {
-  return executeStoredProcedure(req, res, "sp_CreateCustomer");
+const insertPet = async (req, res) => {
+  return executeStoredProcedure(req, res, "sp_CreatePet");
 };
 
 module.exports = {
-  getCustomerById,
-  insertCustomer,
-  deleteCustomerById,
-  updateCustomerById,
+  getPetById,
+  insertPet,
+  deletePetById,
+  updatePetById,
 };

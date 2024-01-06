@@ -1,11 +1,19 @@
-const joi = require("joi");
+const Joi = require("joi");
 
-const petSchema = joi.object({
-  customerID: joi.number().required(),
-  petName: joi.string().required(),
-  species: joi.string().required(),
-  birthDate: joi.date().required(),
-  isAlive: joi.boolean().required(),
+const petSchema = Joi.object({
+  CustomerID: Joi.number().required(),
+  PetName: Joi.string().required(),
+  Species: Joi.string().required(),
+  BirthDate: Joi.date().required(),
+  IsAlive: Joi.boolean().required(),
 });
 
-module.exports = { petSchema };
+const petUpdateSchema = Joi.object({
+  CustomerID: Joi.number(),
+  PetName: Joi.string(),
+  Species: Joi.string(),
+  BirthDate: Joi.date(),
+  IsAlive: Joi.boolean(),
+}).min(1);
+
+module.exports = { petSchema, petUpdateSchema };

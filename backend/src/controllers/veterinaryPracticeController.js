@@ -6,37 +6,37 @@ const {
   executeStoredProcedure,
 } = require("../controllers/sqlController");
 
-const tableName = "dbo.Customers";
-const idColumnName = "CustomerID";
+const tableName = "dbo.VeterinaryPractices";
+const idColumnName = "PracticeID";
 
-const getCustomerById = async (req, res) => {
+const getVeterinaryPracticeById = async (req, res) => {
   return executeSqlQuery(
     res,
     getSelectStatementWithFilter(tableName, idColumnName, req.params.id)
   );
 };
 
-const deleteCustomerById = async (req, res) => {
+const deleteVeterinaryPracticeById = async (req, res) => {
   return executeSqlQuery(
     res,
     getDeleteStatementWithFilter(tableName, idColumnName, req.params.id)
   );
 };
 
-const updateCustomerById = async (req, res) => {
+const updateVeterinaryPracticeById = async (req, res) => {
   return executeSqlQuery(
     res,
     getUpdateStatement(req.params.id, req.body, tableName, idColumnName)
   );
 };
 
-const insertCustomer = async (req, res) => {
-  return executeStoredProcedure(req, res, "sp_CreateCustomer");
+const insertVeterinaryPractice = async (req, res) => {
+  return executeStoredProcedure(req, res, "sp_CreateVeterinaryPractice");
 };
 
 module.exports = {
-  getCustomerById,
-  insertCustomer,
-  deleteCustomerById,
-  updateCustomerById,
+  getVeterinaryPracticeById,
+  insertVeterinaryPractice,
+  deleteVeterinaryPracticeById,
+  updateVeterinaryPracticeById,
 };
