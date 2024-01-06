@@ -1,24 +1,23 @@
 const express = require("express");
-const { connectToDatabase, pool, sql } = require("./utils/sqlConnection");
-const { errorHandler } = require("./middleware/errorHandler");
-const { tryCatch } = require("./utils/tryCatch");
+const { connectToMsqlDatabase, pool, sql } = require("./utils/sqlConnection");
+const { errorHandler } = require("./middlewares/errorHandler");
+const { logger } = require("./middlewares/logger");
 
 const app = express();
+app.use(express.json()); // needed for using req.body
 
-app.get(
-  "/api/veterinary",
-  tryCatch(async (req, res) => {
-    await connectToDatabase();
-    console.log("pool", pool);
+const customerRouter = require("./routes/customers");
+const petRouter = require("./routes/pets");
+const veterinaryPracticeRouter = require("./routes/veterinaryPractices");
 
-    const request = new sql.Request(pool);
-    const result = await request.query("SELECT * FROM dbo.VeterinaryPractice");
-    return res.json(result.recordset);
-  })
-);
+connectToMsqlDatabase();
+
+app.use(logger);
+app.use("/api/customer", customerRouter.router);
+app.use("/api/pet", petRouter.router);
+app.use("/api/veterinary_practice", veterinaryPracticeRouter.router);
+app.use(errorHandler);
 
 app.listen(process.env.PORT, () => {
   console.log(`Server is listening at http://localhost:${process.env.PORT}`);
 });
-
-app.use(errorHandler);

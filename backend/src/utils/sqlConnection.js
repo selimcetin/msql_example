@@ -14,7 +14,7 @@ const config = {
 
 const pool = new sql.ConnectionPool(config);
 
-const connectToDatabase = async () => {
+const connectToMsqlDatabase = async () => {
   try {
     await pool.connect();
     console.log("Connected to Database.");
@@ -25,7 +25,7 @@ const connectToDatabase = async () => {
 };
 
 module.exports = {
-  connectToDatabase,
+  connectToMsqlDatabase,
   pool,
   sql,
 };
