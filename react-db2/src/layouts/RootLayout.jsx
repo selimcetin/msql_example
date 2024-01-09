@@ -7,10 +7,12 @@ const RootLayout = () => {
     <div>
       <header>
         <h1>DB2 Project</h1>
-        <NavLink href="/" label="Home" />
-        <NavLink href="practices" label="Veterinary Practices" />
-        <NavLink href="customers" label="Customers" />
-        <NavLink href="pets" label="Pets" />
+        <nav>
+          <NavLink href="/" label="Home" />
+          <NavLink href="veterinary_practices" label="Veterinary Practices" />
+          <NavLink href="customers" label="Customers" />
+          <NavLink href="pets" label="Pets" />
+        </nav>
       </header>
 
       <main>

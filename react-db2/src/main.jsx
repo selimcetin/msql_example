@@ -7,7 +7,7 @@ import { MantineProvider } from "@mantine/core";
 ReactDOM.createRoot(document.getElementById("root")).render(
   <React.StrictMode>
     <MantineProvider>
-      <App />
+      <App>ss</App>
     </MantineProvider>
   </React.StrictMode>
 );
