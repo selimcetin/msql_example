@@ -6,7 +6,7 @@ import {
 } from "react-router-dom";
 import RootLayout from "./layouts/RootLayout";
 import Home from "./pages/Home";
-import Customers from "./pages/Customers";
+import Customers, { customersLoader } from "./pages/Customers";
 import VeterinaryPractices from "./pages/VeterinaryPractices";
 import Pets from "./pages/Pets";
 
@@ -15,7 +15,11 @@ const router = createBrowserRouter(
     <Route path="/" element={<RootLayout />}>
       <Route index element={<Home />} />
       <Route path="veterinary_practices" element={<VeterinaryPractices />} />
-      <Route path="customers" element={<Customers />} />
+      <Route
+        path="customers"
+        element={<Customers />}
+        loader={customersLoader}
+      />
       <Route path="pets" element={<Pets />} />
     </Route>
   )

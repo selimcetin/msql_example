@@ -1,7 +1,18 @@
 import React from "react";
 
-const Customers = () => {
+export default function Customers() {
   return <div></div>;
-};
+}
 
-export default Customers;
+export const customersLoader = async () => {
+  const res = await fetch("/api/customer", {
+    method: "GET",
+    headers: {
+      "Content-Type": "application/json",
+    },
+  });
+
+  console.log("result:", res);
+
+  return res.json();
+};
