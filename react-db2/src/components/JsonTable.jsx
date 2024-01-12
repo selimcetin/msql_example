@@ -1,10 +1,7 @@
 import { useLoaderData } from "react-router-dom";
 import { Table, Button } from "@mantine/core";
-import { useDataContext } from "../hooks/useDataContext";
-import { useEffect } from "react";
 
-export default function JsonTable({ context }) {
-  const { dispatch } = useDataContext();
+export default function JsonTable() {
   const jsonData = useLoaderData();
   const tableHeaders = Object.keys(jsonData[0]);
 
