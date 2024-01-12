@@ -1,11 +1,21 @@
 import { useForm } from "@mantine/form";
 import { TextInput, Button, Select, Box } from "@mantine/core";
 import { useDataContext } from "../hooks/useDataContext";
+import {
+  getContext,
+  getDropdownDataArray,
+  getVeterinaryDataContext,
+} from "../utils/reducerHelper";
 
 export default function CustomerForm({ onSubmit }) {
   const { state } = useDataContext();
+  const practiceData = getVeterinaryDataContext(state);
 
-  console.log("state", state);
+  const veterinaryPracticeDropDownArray = getDropdownDataArray(
+    practiceData,
+    "PracticeID",
+    "PracticeName"
+  );
 
   const form = useForm({
     initialValues: {
@@ -35,6 +45,7 @@ export default function CustomerForm({ onSubmit }) {
           placeholder="Pick a Practice"
           min={0}
           max={99}
+          data={veterinaryPracticeDropDownArray}
           {...form.getInputProps("PracticeID")}
         />
         <TextInput

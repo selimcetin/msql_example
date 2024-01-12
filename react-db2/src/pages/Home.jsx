@@ -35,7 +35,16 @@ const Home = () => {
 
   return (
     <div>
+      <FormModal
+        title="Veterinary Practice"
+        buttonText="Add Veterinary Practice"
+      >
+        <CustomerForm />
+      </FormModal>
       <FormModal title="Customer" buttonText="Add Customer">
+        <CustomerForm />
+      </FormModal>
+      <FormModal title="Pet" buttonText="Add Pet">
         <CustomerForm />
       </FormModal>
     </div>
