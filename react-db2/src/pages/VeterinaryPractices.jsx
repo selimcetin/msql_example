@@ -1,7 +1,7 @@
-import React from "react";
+import JsonTable from "../components/JsonTable";
 
 const VeterinaryPractices = () => {
-  return <div></div>;
+  return <JsonTable />;
 };
 
 export default VeterinaryPractices;

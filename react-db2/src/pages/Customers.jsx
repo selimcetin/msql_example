@@ -1,18 +1,5 @@
-import React from "react";
+import JsonTable from "../components/JsonTable";
 
 export default function Customers() {
-  return <div></div>;
+  return <JsonTable context="customerData" />;
 }
-
-export const customersLoader = async () => {
-  const res = await fetch("/api/customer", {
-    method: "GET",
-    headers: {
-      "Content-Type": "application/json",
-    },
-  });
-
-  console.log("result:", res);
-
-  return res.json();
-};

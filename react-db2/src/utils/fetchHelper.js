@@ -1,12 +1,18 @@
-const getData = async (url, method) => {
-  const result = await fetch(method, {
-    method: "GET",
-    headers: {
-      "Content-Type": "application/json",
-    },
-  });
+export const getData = async (url, method) => {
+  try {
+    const response = await fetch(url, {
+      method,
+      headers: {
+        "Content-Type": "application/json",
+      },
+    });
 
-  if (result.ok) {
-    return res;
+    if (!response.ok) {
+      throw new Error("Network response was not OK.");
+    }
+
+    return response.json();
+  } catch (error) {
+    console.log("Error:", error);
   }
 };
