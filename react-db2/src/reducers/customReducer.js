@@ -20,7 +20,7 @@ export const contextTypes = {
 export const customReducer = (state, action) => {
   switch (action.type) {
     case actionTypes.INIT_CONTEXT:
-      return { [action.context]: action.payload };
+      return { ...state, [action.context]: action.payload };
     case actionTypes.ADD:
       return [...state[action.context], action.payload];
     case actionTypes.UPDATE:

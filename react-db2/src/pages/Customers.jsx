@@ -1,5 +1,5 @@
 import JsonTable from "../components/JsonTable";
 
 export default function Customers() {
-  return <JsonTable />;
+  return <JsonTable context="customerData" />;
 }

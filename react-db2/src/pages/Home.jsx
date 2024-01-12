@@ -13,7 +13,7 @@ const Home = () => {
   const { dispatch } = useDataContext();
   const method = "GET";
   const contexts = {
-    veterinaryData: GET_PATH_VETERINARY_PRACTICES,
+    veterinaryPracticeData: GET_PATH_VETERINARY_PRACTICES,
     customerData: GET_PATH_CUSTOMERS,
     petData: GET_PATH_PETS,
   };
