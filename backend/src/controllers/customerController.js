@@ -1,13 +1,18 @@
 const {
-  executeSqlQuery,
+  getSelectStatement,
   getSelectStatementWithFilter,
   getDeleteStatementWithFilter,
   getUpdateStatement,
+  executeSqlQuery,
   executeStoredProcedure,
 } = require("../controllers/sqlController");
 
 const tableName = "dbo.Customers";
 const idColumnName = "CustomerID";
+
+const getAllCustomers = async (req, res) => {
+  return executeSqlQuery(res, getSelectStatement(tableName));
+};
 
 const getCustomerById = async (req, res) => {
   return executeSqlQuery(
@@ -35,6 +40,7 @@ const insertCustomer = async (req, res) => {
 };
 
 module.exports = {
+  getAllCustomers,
   getCustomerById,
   insertCustomer,
   deleteCustomerById,

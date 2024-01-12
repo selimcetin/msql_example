@@ -1,13 +1,18 @@
 const {
-  executeSqlQuery,
+  getSelectStatement,
   getSelectStatementWithFilter,
   getDeleteStatementWithFilter,
   getUpdateStatement,
+  executeSqlQuery,
   executeStoredProcedure,
 } = require("../controllers/sqlController");
 
 const tableName = "dbo.VeterinaryPractices";
 const idColumnName = "PracticeID";
+
+const getAllVeterinaryPractices = async (req, res) => {
+  return executeSqlQuery(res, getSelectStatement(tableName));
+};
 
 const getVeterinaryPracticeById = async (req, res) => {
   return executeSqlQuery(
@@ -35,6 +40,7 @@ const insertVeterinaryPractice = async (req, res) => {
 };
 
 module.exports = {
+  getAllVeterinaryPractices,
   getVeterinaryPracticeById,
   insertVeterinaryPractice,
   deleteVeterinaryPracticeById,

@@ -9,11 +9,14 @@ const {
 const { tryCatch } = require("../utils/tryCatch");
 
 const {
+  getAllCustomers,
   getCustomerById,
   deleteCustomerById,
   updateCustomerById,
   insertCustomer,
 } = require("../controllers/customerController");
+
+router.get("/", tryCatch(getAllCustomers));
 
 router
   .route("/:id")
@@ -22,10 +25,5 @@ router
   .delete(tryCatch(deleteCustomerById));
 
 router.post("/", validateSchema(customerSchema), tryCatch(insertCustomer));
-
-router.param("id", (req, res, next, id) => {
-  console.log(`inside customers ${id} route`);
-  next();
-});
 
 module.exports = { router };

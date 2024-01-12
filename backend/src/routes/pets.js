@@ -6,11 +6,14 @@ const { petSchema, petUpdateSchema } = require("../schemas/petSchema");
 const { tryCatch } = require("../utils/tryCatch");
 
 const {
+  getAllPets,
   getPetById,
   deletePetById,
   updatePetById,
   insertPet,
 } = require("../controllers/petController");
+
+router.get("/", tryCatch(getAllPets));
 
 router
   .route("/:id")
@@ -19,10 +22,5 @@ router
   .delete(tryCatch(deletePetById));
 
 router.post("/", validateSchema(petSchema), tryCatch(insertPet));
-
-router.param("id", (req, res, next, id) => {
-  console.log(`inside pets ${id} route`);
-  next();
-});
 
 module.exports = { router };
