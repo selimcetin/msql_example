@@ -1,4 +1,4 @@
-export const getContext = (state, contextName) => {
+const getContext = (state, contextName) => {
   return state[contextName];
 };
 

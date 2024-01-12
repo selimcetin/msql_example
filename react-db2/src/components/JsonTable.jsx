@@ -1,10 +1,9 @@
 import { Table, Button } from "@mantine/core";
-import { getContext } from "../utils/reducerHelper";
 import { useDataContext } from "../hooks/useDataContext";
 
-export default function JsonTable({ context }) {
+export default function JsonTable({ getContextFunction }) {
   const { state } = useDataContext();
-  const jsonData = getContext(state, context);
+  const jsonData = getContextFunction(state);
   const tableHeaders = Object.keys(jsonData[0]);
 
   return (

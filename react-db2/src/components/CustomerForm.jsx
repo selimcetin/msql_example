@@ -2,10 +2,9 @@ import { useForm } from "@mantine/form";
 import { TextInput, Button, Select, Box } from "@mantine/core";
 import { useDataContext } from "../hooks/useDataContext";
 import {
-  getContext,
   getDropdownDataArray,
   getVeterinaryDataContext,
-} from "../utils/reducerHelper";
+} from "../controllers/contextController";
 
 export default function CustomerForm({ onSubmit }) {
   const { state } = useDataContext();
