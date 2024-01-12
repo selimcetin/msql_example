@@ -1,5 +1,5 @@
 import { useForm } from "@mantine/form";
-import { NumberInput, TextInput, Button, Select, Box } from "@mantine/core";
+import { TextInput, Button, Select, Box } from "@mantine/core";
 import { useDataContext } from "../hooks/useDataContext";
 
 export default function CustomerForm({ onSubmit }) {
