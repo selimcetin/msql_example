@@ -2,9 +2,10 @@ import { Button, Modal } from "@mantine/core";
 import { useModalContext } from "../../hooks/useModalContext";
 
 export default function FormModal({ children, title, buttonText }) {
-  const { opened, open, close, setIsEditing } = useModalContext();
+  const { opened, open, close, setIsEditing, setElement } = useModalContext();
 
   const handleClick = () => {
+    setElement(null);
     setIsEditing(false);
     open();
   };
