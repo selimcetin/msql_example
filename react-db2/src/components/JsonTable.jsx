@@ -1,7 +1,11 @@
 import { Table, Button } from "@mantine/core";
 import { useDataContext } from "../hooks/useDataContext";
 
-export default function JsonTable({ getContextFunction }) {
+export default function JsonTable({
+  handleEditClick,
+  handleDeleteClick,
+  getContextFunction,
+}) {
   const { state } = useDataContext();
   const jsonData = getContextFunction(state);
   const tableHeaders = Object.keys(jsonData[0]);
@@ -22,10 +26,10 @@ export default function JsonTable({ getContextFunction }) {
               <Table.Td key={index}>{element[header]}</Table.Td>
             ))}
             <Table.Td>
-              <Button>Edit</Button>
+              <Button onClick={handleEditClick}>Edit</Button>
             </Table.Td>
             <Table.Td>
-              <Button>Delete</Button>
+              <Button onClick={handleDeleteClick}>Delete</Button>
             </Table.Td>
           </Table.Tr>
         ))}

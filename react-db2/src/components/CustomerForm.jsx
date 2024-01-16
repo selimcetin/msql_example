@@ -6,7 +6,7 @@ import {
   getVeterinaryDataContext,
 } from "../controllers/contextController";
 
-export default function CustomerForm({ onSubmit }) {
+export default function CustomerForm({ customer, onSubmit }) {
   const { state } = useDataContext();
   const practiceData = getVeterinaryDataContext(state);
 
