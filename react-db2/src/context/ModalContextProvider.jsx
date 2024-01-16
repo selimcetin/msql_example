@@ -5,14 +5,14 @@ export const ModalContext = createContext();
 
 const ModalContextProvider = ({ children }) => {
   const [opened, { open, close }] = useDisclosure(false);
-  const [editData, setEditData] = useState(null);
+  const [element, setElement] = useState(null);
 
   const contextValue = {
     opened,
     open,
     close,
-    editData,
-    setEditData,
+    element,
+    setElement,
   };
 
   return (

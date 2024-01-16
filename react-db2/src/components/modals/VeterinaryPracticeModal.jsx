@@ -4,14 +4,9 @@ import FormModal from "./FormModal";
 
 const VeterinaryPracticeModal = () => {
   return (
-    <ModalContextProvider>
-      <FormModal
-        title="Veterinary Practice"
-        buttonText="Add Veterinary Practice"
-      >
-        <VeterinaryPracticeForm />
-      </FormModal>
-    </ModalContextProvider>
+    <FormModal title="Veterinary Practice" buttonText="Add Veterinary Practice">
+      <VeterinaryPracticeForm />
+    </FormModal>
   );
 };
 

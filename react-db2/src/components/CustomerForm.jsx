@@ -5,21 +5,26 @@ import {
   getDropdownDataArray,
   getVeterinaryDataContext,
 } from "../controllers/contextController";
+import { useModalContext } from "../hooks/useModalContext";
 
-export default function CustomerForm({ customer, onSubmit }) {
+export default function CustomerForm({ onSubmit }) {
   const { state } = useDataContext();
+  const { element, setElement } = useModalContext();
+
   const practiceData = getVeterinaryDataContext(state);
 
   const labelPracticeID = "PracticeID";
   const labelCustomerName = "Customer Name";
   const labelEmail = "Email";
-  const labelPhoneNumber = "Phone Number";
+  const labelPhone = "Phone Number";
 
   const veterinaryPracticeDropDownArray = getDropdownDataArray(
     practiceData,
     "PracticeID",
     "PracticeName"
   );
+
+  console.log("vet", veterinaryPracticeDropDownArray);
 
   const form = useForm({
     initialValues: {
@@ -51,24 +56,37 @@ export default function CustomerForm({ customer, onSubmit }) {
           max={99}
           data={veterinaryPracticeDropDownArray}
           {...form.getInputProps(labelPracticeID)}
+          onChange={(value, option) => {
+            console.log("value", option);
+            setElement({ ...element, PracticeID: parseInt(value) });
+          }}
+          value={element.PracticeID.toString() || ""}
         />
         <TextInput
           mt="sm"
           label={labelCustomerName}
           placeholder={labelCustomerName}
           {...form.getInputProps("CustomerName")}
+          onChange={(e) =>
+            setElement({ ...element, CustomerName: e.target.value })
+          }
+          value={element.CustomerName || ""}
         />
         <TextInput
           mt="sm"
           label={labelEmail}
           placeholder={labelEmail}
           {...form.getInputProps(labelEmail)}
+          onChange={(e) => setElement({ ...element, Email: e.target.value })}
+          value={element.Email || ""}
         />
         <TextInput
           mt="sm"
-          label={labelPhoneNumber}
-          placeholder={labelPhoneNumber}
-          {...form.getInputProps(labelPhoneNumber)}
+          label={labelPhone}
+          placeholder={labelPhone}
+          {...form.getInputProps(labelPhone)}
+          onChange={(e) => setElement({ ...element, Phone: e.target.value })}
+          value={element.Phone || ""}
         />
         <Button type="submit" mt="sm">
           Submit

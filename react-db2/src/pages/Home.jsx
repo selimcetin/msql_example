@@ -35,16 +35,7 @@ const Home = () => {
     initializeContexts();
   }, []);
 
-  return (
-    <div>
-      <VeterinaryPracticeModal
-        title="Veterinary Practice"
-        buttonText="Add Veterinary Practice"
-      />
-      <CustomerModal title="Customer" buttonText="Add Customer" />
-      <PetModal title="Pet" buttonText="Add Pet" />
-    </div>
-  );
+  return <div></div>;
 };
 
 export default Home;

@@ -4,11 +4,9 @@ import FormModal from "./FormModal";
 
 const CustomerModal = () => {
   return (
-    <ModalContextProvider>
-      <FormModal title="Customer" buttonText="Add Customer">
-        <CustomerForm />
-      </FormModal>
-    </ModalContextProvider>
+    <FormModal title="Customer" buttonText="Add Customer">
+      <CustomerForm />
+    </FormModal>
   );
 };
 
