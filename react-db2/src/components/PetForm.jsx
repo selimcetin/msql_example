@@ -6,7 +6,7 @@ import {
   getCustomerDataContext,
   getDropdownDataArray,
 } from "../controllers/contextController";
-import { species } from "../../../backend/src/constants/tableData";
+import { species } from "../constants/tableData";
 
 export default function PetForm({ onSubmit }) {
   const { state } = useDataContext();
