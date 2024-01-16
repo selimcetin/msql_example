@@ -18,7 +18,11 @@ export const getData = async (url, method, body) => {
   }
 };
 
-export const updateData = async (url, element) => {
+export const postData = async (url, element) => {
+  getData(url, "POST", element);
+};
+
+export const putData = async (url, element) => {
   getData(url, "PUT", element);
 };
 

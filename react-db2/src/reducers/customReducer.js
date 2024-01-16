@@ -22,7 +22,10 @@ export const customReducer = (state, action) => {
     case actionTypes.INIT_CONTEXT:
       return { ...state, [action.context]: action.payload };
     case actionTypes.ADD:
-      return [...state[action.context], action.payload];
+      return {
+        ...state,
+        [action.context]: [action.payload, ...state[action.context]],
+      };
     case actionTypes.UPDATE:
       return {
         ...state,

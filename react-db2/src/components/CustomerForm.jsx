@@ -7,12 +7,13 @@ import {
 } from "../controllers/contextController";
 import { useModalContext } from "../hooks/useModalContext";
 import { actionTypes, contextTypes } from "../reducers/customReducer";
-import { updateData } from "../utils/fetchHelper";
+import { putData } from "../utils/fetchHelper";
 import { GET_PATH_CUSTOMERS } from "../constants/apiRequestPaths";
 
 export default function CustomerForm() {
   const { state, dispatch } = useDataContext();
-  const { element, setElement, close } = useModalContext();
+  const { onAddSubmit, onEditSubmit, element, setElement, isEditing } =
+    useModalContext();
 
   const practiceData = getVeterinaryDataContext(state);
 
@@ -26,23 +27,6 @@ export default function CustomerForm() {
     "PracticeID",
     "PracticeName"
   );
-
-  const onSubmit = async () => {
-    dispatch({
-      type: actionTypes.UPDATE,
-      context: contextTypes.customerData,
-      payload: element,
-    });
-
-    const { CustomerID, ...elementWithoutCustomerID } = element;
-
-    await updateData(
-      GET_PATH_CUSTOMERS + element.CustomerID,
-      JSON.stringify(elementWithoutCustomerID)
-    );
-
-    close();
-  };
 
   const form = useForm({
     initialValues: {
@@ -105,7 +89,7 @@ export default function CustomerForm() {
         onChange={(e) => setElement({ ...element, Phone: e.target.value })}
         value={element?.Phone || ""}
       />
-      <Button onClick={onSubmit} mt="sm">
+      <Button onClick={isEditing ? onEditSubmit : onAddSubmit} mt="sm">
         Submit
       </Button>
     </Box>

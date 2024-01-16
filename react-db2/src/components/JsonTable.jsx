@@ -4,13 +4,14 @@ import { useModalContext } from "../hooks/useModalContext";
 
 export default function JsonTable({ deleteElement, getContextFunction }) {
   const { state } = useDataContext();
-  const { setElement, open } = useModalContext();
+  const { setElement, setIsEditing, open } = useModalContext();
 
   const jsonData = getContextFunction(state);
   const tableHeaders = Object.keys(jsonData[0]);
 
   const handleEditClick = (element) => {
     setElement(element);
+    setIsEditing(true);
     open();
   };
 
