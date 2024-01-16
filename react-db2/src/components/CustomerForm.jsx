@@ -6,9 +6,7 @@ import {
   getVeterinaryDataContext,
 } from "../controllers/contextController";
 import { useModalContext } from "../hooks/useModalContext";
-import { actionTypes, contextTypes } from "../reducers/customReducer";
-import { putData } from "../utils/fetchHelper";
-import { GET_PATH_CUSTOMERS } from "../constants/apiRequestPaths";
+import { idColumnCustomer } from "../constants/idColumnName";
 
 export default function CustomerForm() {
   const { state, dispatch } = useDataContext();
@@ -46,6 +44,8 @@ export default function CustomerForm() {
       Email: (value) => (/^\S+@\S+$/.test(value) ? null : "Invalid email"),
     },
   });
+
+  console.log("isEditing custform", isEditing);
 
   return (
     <Box maw={340} mx="auto">
@@ -89,7 +89,14 @@ export default function CustomerForm() {
         onChange={(e) => setElement({ ...element, Phone: e.target.value })}
         value={element?.Phone || ""}
       />
-      <Button onClick={isEditing ? onEditSubmit : onAddSubmit} mt="sm">
+      <Button
+        onClick={() =>
+          isEditing
+            ? onEditSubmit(idColumnCustomer)
+            : onAddSubmit(idColumnCustomer)
+        }
+        mt="sm"
+      >
         Submit
       </Button>
     </Box>
