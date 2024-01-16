@@ -57,8 +57,7 @@ export default function CustomerForm() {
         max={99}
         data={veterinaryPracticeDropDownArray}
         {...form.getInputProps(labelPracticeID)}
-        onChange={(value, option) => {
-          console.log("value", option);
+        onChange={(value) => {
           setElement({ ...element, PracticeID: parseInt(value) });
         }}
         value={element?.PracticeID.toString() || ""}
