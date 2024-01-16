@@ -1,10 +1,11 @@
-export const getData = async (url, method) => {
+export const getData = async (url, method, body) => {
   try {
     const response = await fetch(url, {
       method,
       headers: {
         "Content-Type": "application/json",
       },
+      body,
     });
 
     if (!response.ok) {
@@ -15,4 +16,9 @@ export const getData = async (url, method) => {
   } catch (error) {
     console.log("Error:", error);
   }
+};
+
+export const updateData = async (url, element) => {
+  console.log("element", element);
+  getData(url, "PUT", element);
 };

@@ -6,10 +6,13 @@ import {
   getVeterinaryDataContext,
 } from "../controllers/contextController";
 import { useModalContext } from "../hooks/useModalContext";
+import { actionTypes, contextTypes } from "../reducers/customReducer";
+import { updateData } from "../utils/fetchHelper";
+import { GET_PATH_CUSTOMERS } from "../constants/apiRequestPaths";
 
-export default function CustomerForm({ onSubmit }) {
-  const { state } = useDataContext();
-  const { element, setElement } = useModalContext();
+export default function CustomerForm() {
+  const { state, dispatch } = useDataContext();
+  const { element, setElement, close } = useModalContext();
 
   const practiceData = getVeterinaryDataContext(state);
 
@@ -24,7 +27,22 @@ export default function CustomerForm({ onSubmit }) {
     "PracticeName"
   );
 
-  console.log("vet", veterinaryPracticeDropDownArray);
+  const onSubmit = async () => {
+    dispatch({
+      type: actionTypes.UPDATE,
+      context: contextTypes.customerData,
+      payload: element,
+    });
+
+    const { CustomerID, ...elementWithoutCustomerID } = element;
+
+    await updateData(
+      GET_PATH_CUSTOMERS + element.CustomerID,
+      JSON.stringify(elementWithoutCustomerID)
+    );
+
+    close();
+  };
 
   const form = useForm({
     initialValues: {
@@ -47,51 +65,49 @@ export default function CustomerForm({ onSubmit }) {
 
   return (
     <Box maw={340} mx="auto">
-      <form onSubmit={onSubmit}>
-        <Select
-          mt="sm"
-          label={labelPracticeID}
-          placeholder="Pick a Practice"
-          min={0}
-          max={99}
-          data={veterinaryPracticeDropDownArray}
-          {...form.getInputProps(labelPracticeID)}
-          onChange={(value, option) => {
-            console.log("value", option);
-            setElement({ ...element, PracticeID: parseInt(value) });
-          }}
-          value={element.PracticeID.toString() || ""}
-        />
-        <TextInput
-          mt="sm"
-          label={labelCustomerName}
-          placeholder={labelCustomerName}
-          {...form.getInputProps("CustomerName")}
-          onChange={(e) =>
-            setElement({ ...element, CustomerName: e.target.value })
-          }
-          value={element.CustomerName || ""}
-        />
-        <TextInput
-          mt="sm"
-          label={labelEmail}
-          placeholder={labelEmail}
-          {...form.getInputProps(labelEmail)}
-          onChange={(e) => setElement({ ...element, Email: e.target.value })}
-          value={element.Email || ""}
-        />
-        <TextInput
-          mt="sm"
-          label={labelPhone}
-          placeholder={labelPhone}
-          {...form.getInputProps(labelPhone)}
-          onChange={(e) => setElement({ ...element, Phone: e.target.value })}
-          value={element.Phone || ""}
-        />
-        <Button type="submit" mt="sm">
-          Submit
-        </Button>
-      </form>
+      <Select
+        mt="sm"
+        label={labelPracticeID}
+        placeholder="Pick a Practice"
+        min={0}
+        max={99}
+        data={veterinaryPracticeDropDownArray}
+        {...form.getInputProps(labelPracticeID)}
+        onChange={(value, option) => {
+          console.log("value", option);
+          setElement({ ...element, PracticeID: parseInt(value) });
+        }}
+        value={element.PracticeID.toString() || ""}
+      />
+      <TextInput
+        mt="sm"
+        label={labelCustomerName}
+        placeholder={labelCustomerName}
+        {...form.getInputProps("CustomerName")}
+        onChange={(e) =>
+          setElement({ ...element, CustomerName: e.target.value })
+        }
+        value={element.CustomerName || ""}
+      />
+      <TextInput
+        mt="sm"
+        label={labelEmail}
+        placeholder={labelEmail}
+        {...form.getInputProps(labelEmail)}
+        onChange={(e) => setElement({ ...element, Email: e.target.value })}
+        value={element.Email || ""}
+      />
+      <TextInput
+        mt="sm"
+        label={labelPhone}
+        placeholder={labelPhone}
+        {...form.getInputProps(labelPhone)}
+        onChange={(e) => setElement({ ...element, Phone: e.target.value })}
+        value={element.Phone || ""}
+      />
+      <Button onClick={onSubmit} mt="sm">
+        Submit
+      </Button>
     </Box>
   );
 }

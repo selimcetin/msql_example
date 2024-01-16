@@ -5,6 +5,7 @@ import { useModalContext } from "../hooks/useModalContext";
 export default function JsonTable({ handleDeleteClick, getContextFunction }) {
   const { state } = useDataContext();
   const { setElement, open } = useModalContext();
+
   const jsonData = getContextFunction(state);
   const tableHeaders = Object.keys(jsonData[0]);
 

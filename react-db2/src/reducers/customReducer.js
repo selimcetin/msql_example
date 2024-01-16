@@ -25,8 +25,11 @@ export const customReducer = (state, action) => {
       return [...state[action.context], action.payload];
     case actionTypes.UPDATE:
       return {
+        ...state,
         [action.context]: state[action.context]?.map((element) =>
-          element.id === action.payload.id ? action.payload : element
+          element.CustomerID === action.payload.CustomerID
+            ? action.payload
+            : element
         ),
       };
     case actionTypes.DELETE:
