@@ -19,6 +19,9 @@ export const getData = async (url, method, body) => {
 };
 
 export const updateData = async (url, element) => {
-  console.log("element", element);
   getData(url, "PUT", element);
+};
+
+export const deleteData = async (url) => {
+  getData(url, "DELETE");
 };

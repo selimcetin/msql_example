@@ -2,7 +2,7 @@ import { Table, Button } from "@mantine/core";
 import { useDataContext } from "../hooks/useDataContext";
 import { useModalContext } from "../hooks/useModalContext";
 
-export default function JsonTable({ handleDeleteClick, getContextFunction }) {
+export default function JsonTable({ deleteElement, getContextFunction }) {
   const { state } = useDataContext();
   const { setElement, open } = useModalContext();
 
@@ -12,6 +12,12 @@ export default function JsonTable({ handleDeleteClick, getContextFunction }) {
   const handleEditClick = (element) => {
     setElement(element);
     open();
+  };
+
+  const handleDeleteClick = (element) => {
+    setElement(element);
+
+    deleteElement(element);
   };
 
   return (
@@ -33,7 +39,7 @@ export default function JsonTable({ handleDeleteClick, getContextFunction }) {
               <Button onClick={() => handleEditClick(element)}>Edit</Button>
             </Table.Td>
             <Table.Td>
-              <Button onClick={handleDeleteClick}>Delete</Button>
+              <Button onClick={() => handleDeleteClick(element)}>Delete</Button>
             </Table.Td>
           </Table.Tr>
         ))}

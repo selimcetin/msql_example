@@ -27,15 +27,18 @@ export const customReducer = (state, action) => {
       return {
         ...state,
         [action.context]: state[action.context]?.map((element) =>
-          element.CustomerID === action.payload.CustomerID
+          element[action.id] === action.payload[action.id]
             ? action.payload
             : element
         ),
       };
     case actionTypes.DELETE:
-      return [
-        state.context.filter((element) => element.id !== action.payload.id),
-      ];
+      return {
+        ...state,
+        [action.context]: state[action.context].filter(
+          (element) => element[action.id] !== action.payload[action.id]
+        ),
+      };
     default:
       return state;
   }
