@@ -77,7 +77,7 @@ export default function CustomerForm() {
           console.log("value", option);
           setElement({ ...element, PracticeID: parseInt(value) });
         }}
-        value={element.PracticeID.toString() || ""}
+        value={element?.PracticeID.toString() || ""}
       />
       <TextInput
         mt="sm"
@@ -87,7 +87,7 @@ export default function CustomerForm() {
         onChange={(e) =>
           setElement({ ...element, CustomerName: e.target.value })
         }
-        value={element.CustomerName || ""}
+        value={element?.CustomerName || ""}
       />
       <TextInput
         mt="sm"
@@ -95,7 +95,7 @@ export default function CustomerForm() {
         placeholder={labelEmail}
         {...form.getInputProps(labelEmail)}
         onChange={(e) => setElement({ ...element, Email: e.target.value })}
-        value={element.Email || ""}
+        value={element?.Email || ""}
       />
       <TextInput
         mt="sm"
@@ -103,7 +103,7 @@ export default function CustomerForm() {
         placeholder={labelPhone}
         {...form.getInputProps(labelPhone)}
         onChange={(e) => setElement({ ...element, Phone: e.target.value })}
-        value={element.Phone || ""}
+        value={element?.Phone || ""}
       />
       <Button onClick={onSubmit} mt="sm">
         Submit
