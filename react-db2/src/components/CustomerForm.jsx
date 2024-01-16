@@ -10,6 +10,11 @@ export default function CustomerForm({ onSubmit }) {
   const { state } = useDataContext();
   const practiceData = getVeterinaryDataContext(state);
 
+  const labelPracticeID = "PracticeID";
+  const labelCustomerName = "Customer Name";
+  const labelEmail = "Email";
+  const labelPhoneNumber = "Phone Number";
+
   const veterinaryPracticeDropDownArray = getDropdownDataArray(
     practiceData,
     "PracticeID",
@@ -27,9 +32,9 @@ export default function CustomerForm({ onSubmit }) {
     validate: {
       PracticeID: (value) =>
         typeof value !== "number" ? "ID must be a number" : null,
-      CustomerName: (value) =>
+      "Customer Name": (value) =>
         value.length < 3 ? "Name must have at least 3 letters" : null,
-      PhoneNumber: (value) =>
+      "Phone Number": (value) =>
         /0[1-9]{3}-?[1-9]\d{4,9}/.test(value) ? null : "Invalid phone number",
       Email: (value) => (/^\S+@\S+$/.test(value) ? null : "Invalid email"),
     },
@@ -40,30 +45,30 @@ export default function CustomerForm({ onSubmit }) {
       <form onSubmit={onSubmit}>
         <Select
           mt="sm"
-          label="Practice Name"
+          label={labelPracticeID}
           placeholder="Pick a Practice"
           min={0}
           max={99}
           data={veterinaryPracticeDropDownArray}
-          {...form.getInputProps("PracticeID")}
+          {...form.getInputProps(labelPracticeID)}
         />
         <TextInput
           mt="sm"
-          label="Customer Name"
-          placeholder="Customer Name"
+          label={labelCustomerName}
+          placeholder={labelCustomerName}
           {...form.getInputProps("CustomerName")}
         />
         <TextInput
           mt="sm"
-          label="Email"
-          placeholder="Email"
-          {...form.getInputProps("Email")}
+          label={labelEmail}
+          placeholder={labelEmail}
+          {...form.getInputProps(labelEmail)}
         />
         <TextInput
           mt="sm"
-          label="Phone Number"
-          placeholder="Phone Number"
-          {...form.getInputProps("PhoneNumber")}
+          label={labelPhoneNumber}
+          placeholder={labelPhoneNumber}
+          {...form.getInputProps(labelPhoneNumber)}
         />
         <Button type="submit" mt="sm">
           Submit

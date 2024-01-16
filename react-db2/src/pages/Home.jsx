@@ -8,6 +8,9 @@ import {
   GET_PATH_PETS,
   GET_PATH_VETERINARY_PRACTICES,
 } from "../constants/apiRequestPaths";
+import VeterinaryPracticeForm from "../components/veterinaryPracticeForm";
+import PetForm from "../components/PetForm";
+import { actionTypes } from "../reducers/customReducer";
 
 const Home = () => {
   const { dispatch } = useDataContext();
@@ -24,7 +27,7 @@ const Home = () => {
         const urlValue = contexts[key];
         const jsonData = await getData(urlValue, method);
         dispatch({
-          type: "INIT_CONTEXT",
+          type: actionTypes.INIT_CONTEXT,
           context: key,
           payload: jsonData,
         });
@@ -39,13 +42,13 @@ const Home = () => {
         title="Veterinary Practice"
         buttonText="Add Veterinary Practice"
       >
-        <CustomerForm />
+        <VeterinaryPracticeForm />
       </FormModal>
       <FormModal title="Customer" buttonText="Add Customer">
         <CustomerForm />
       </FormModal>
       <FormModal title="Pet" buttonText="Add Pet">
-        <CustomerForm />
+        <PetForm />
       </FormModal>
     </div>
   );
