@@ -1,4 +1,3 @@
-import { useForm } from "@mantine/form";
 import { TextInput, Button, Select, Box } from "@mantine/core";
 import { useDataContext } from "../hooks/useDataContext";
 import {
@@ -8,6 +7,7 @@ import {
 import { useModalContext } from "../hooks/useModalContext";
 import { idColumnCustomer } from "../constants/tableData";
 import { GET_PATH_CUSTOMERS } from "../constants/apiRequestPaths";
+import { contextTypes } from "../reducers/customReducer";
 
 export default function CustomerForm() {
   const { state } = useDataContext();
@@ -67,8 +67,16 @@ export default function CustomerForm() {
       <Button
         onClick={() =>
           isEditing
-            ? onEditSubmit(idColumnCustomer, GET_PATH_CUSTOMERS)
-            : onAddSubmit(idColumnCustomer, GET_PATH_CUSTOMERS)
+            ? onEditSubmit(
+                idColumnCustomer,
+                GET_PATH_CUSTOMERS,
+                contextTypes.customerData
+              )
+            : onAddSubmit(
+                idColumnCustomer,
+                GET_PATH_CUSTOMERS,
+                contextTypes.customerData
+              )
         }
         mt="sm"
       >

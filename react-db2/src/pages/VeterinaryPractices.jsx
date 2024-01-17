@@ -14,7 +14,7 @@ const VeterinaryPractices = () => {
   const deleteElement = async (element) => {
     dispatch({
       type: actionTypes.DELETE,
-      context: contextTypes.petData,
+      context: contextTypes.veterinaryPracticeData,
       payload: element,
       id: idColumnVeterinaryPractice,
     });

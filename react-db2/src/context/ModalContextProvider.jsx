@@ -13,12 +13,12 @@ const ModalContextProvider = ({ children }) => {
   const [element, setElement] = useState(null);
   const [isEditing, setIsEditing] = useState(false);
 
-  const onAddSubmit = async (idColumnName, path) => {
+  const onAddSubmit = async (idColumnName, path, context) => {
     setIsEditing(false);
 
     dispatch({
       type: actionTypes.ADD,
-      context: contextTypes.customerData,
+      context: context,
       payload: element,
       id: idColumnName,
     });
@@ -28,19 +28,28 @@ const ModalContextProvider = ({ children }) => {
     close();
   };
 
-  const onEditSubmit = async (idColumnName, path) => {
+  const onEditSubmit = async (idColumnName, path, context) => {
     dispatch({
       type: actionTypes.UPDATE,
-      context: contextTypes.petData,
+      context: context,
       payload: element,
       id: idColumnName,
     });
+    console.log("element before:", element);
+    const { [idColumnName]: value, ...filteredElement } = element;
+    console.log("element after:", element);
 
-    const { [idColumnName]: value, ...elementWithoutCustomerID } = element;
+    console.log("disp", {
+      type: actionTypes.UPDATE,
+      context: context,
+      payload: element,
+      id: idColumnName,
+      element: filteredElement,
+    });
 
     await putData(
       path + element[idColumnName],
-      JSON.stringify(elementWithoutCustomerID)
+      JSON.stringify(filteredElement)
     );
 
     setIsEditing(false);

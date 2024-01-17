@@ -9,6 +9,7 @@ import { idColumnPet } from "../constants/tableData";
 import { useModalContext } from "../hooks/useModalContext";
 import { useState } from "react";
 import { GET_PATH_PETS } from "../constants/apiRequestPaths";
+import { contextTypes } from "../reducers/customReducer";
 
 export default function PetForm() {
   const { state } = useDataContext();
@@ -78,8 +79,8 @@ export default function PetForm() {
       <Button
         onClick={() =>
           isEditing
-            ? onEditSubmit(idColumnPet, GET_PATH_PETS)
-            : onAddSubmit(idColumnPet, GET_PATH_PETS)
+            ? onEditSubmit(idColumnPet, GET_PATH_PETS, contextTypes.petData)
+            : onAddSubmit(idColumnPet, GET_PATH_PETS, contextTypes.petData)
         }
         mt="sm"
       >
