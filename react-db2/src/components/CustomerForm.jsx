@@ -27,27 +27,6 @@ export default function CustomerForm() {
     "PracticeName"
   );
 
-  const form = useForm({
-    initialValues: {
-      PracticeID: "",
-      CustomerName: "",
-      Email: "",
-      PhoneNumber: "",
-    },
-
-    validate: {
-      PracticeID: (value) =>
-        typeof value !== "number" ? "ID must be a number" : null,
-      "Customer Name": (value) =>
-        value.length < 3 ? "Name must have at least 3 letters" : null,
-      "Phone Number": (value) =>
-        /0[1-9]{3}-?[1-9]\d{4,9}/.test(value) ? null : "Invalid phone number",
-      Email: (value) => (/^\S+@\S+$/.test(value) ? null : "Invalid email"),
-    },
-  });
-
-  console.log("isEditing custform", isEditing);
-
   return (
     <Box maw={340} mx="auto">
       <Select
@@ -57,7 +36,6 @@ export default function CustomerForm() {
         min={0}
         max={99}
         data={veterinaryPracticeDropDownArray}
-        {...form.getInputProps(labelPracticeID)}
         onChange={(value) => {
           setElement({ ...element, PracticeID: parseInt(value) });
         }}
@@ -67,7 +45,6 @@ export default function CustomerForm() {
         mt="sm"
         label={labelCustomerName}
         placeholder={labelCustomerName}
-        {...form.getInputProps("CustomerName")}
         onChange={(e) =>
           setElement({ ...element, CustomerName: e.target.value })
         }
@@ -77,7 +54,6 @@ export default function CustomerForm() {
         mt="sm"
         label={labelEmail}
         placeholder={labelEmail}
-        {...form.getInputProps(labelEmail)}
         onChange={(e) => setElement({ ...element, Email: e.target.value })}
         value={element?.Email || ""}
       />
@@ -85,7 +61,6 @@ export default function CustomerForm() {
         mt="sm"
         label={labelPhone}
         placeholder={labelPhone}
-        {...form.getInputProps(labelPhone)}
         onChange={(e) => setElement({ ...element, Phone: e.target.value })}
         value={element?.Phone || ""}
       />
