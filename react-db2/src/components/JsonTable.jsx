@@ -1,10 +1,25 @@
 import { Table, Button } from "@mantine/core";
 import { useDataContext } from "../hooks/useDataContext";
+import { useModalContext } from "../hooks/useModalContext";
 
-export default function JsonTable({ getContextFunction }) {
+export default function JsonTable({ deleteElement, getContextFunction }) {
   const { state } = useDataContext();
+  const { setElement, setIsEditing, open } = useModalContext();
+
   const jsonData = getContextFunction(state);
   const tableHeaders = Object.keys(jsonData[0]);
+
+  const handleEditClick = (element) => {
+    setElement(element);
+    setIsEditing(true);
+    open();
+  };
+
+  const handleDeleteClick = (element) => {
+    setElement(element);
+
+    deleteElement(element);
+  };
 
   return (
     <Table>
@@ -22,10 +37,10 @@ export default function JsonTable({ getContextFunction }) {
               <Table.Td key={index}>{element[header]}</Table.Td>
             ))}
             <Table.Td>
-              <Button>Edit</Button>
+              <Button onClick={() => handleEditClick(element)}>Edit</Button>
             </Table.Td>
             <Table.Td>
-              <Button>Delete</Button>
+              <Button onClick={() => handleDeleteClick(element)}>Delete</Button>
             </Table.Td>
           </Table.Tr>
         ))}

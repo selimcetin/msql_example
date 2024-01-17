@@ -1,4 +1,3 @@
-import { useForm } from "@mantine/form";
 import { Checkbox, TextInput, Button, Select, Box } from "@mantine/core";
 import { DateInput } from "@mantine/dates";
 import { useDataContext } from "../hooks/useDataContext";
@@ -6,11 +5,26 @@ import {
   getCustomerDataContext,
   getDropdownDataArray,
 } from "../controllers/contextController";
-import { species } from "../../../backend/src/constants/tableData";
+import { idColumnPet } from "../constants/tableData";
+import { useModalContext } from "../hooks/useModalContext";
+import { useState } from "react";
+import { GET_PATH_PETS } from "../constants/apiRequestPaths";
+import { contextTypes } from "../reducers/customReducer";
 
-export default function PetForm({ onSubmit }) {
+export default function PetForm() {
   const { state } = useDataContext();
+  const { onAddSubmit, onEditSubmit, element, setElement, isEditing } =
+    useModalContext();
   const customerData = getCustomerDataContext(state);
+  const [, setDate] = useState(null);
+
+  const handleDateChange = (date) => {
+    setDate(date);
+    const dateString = `${date.getFullYear()}-${
+      date.getMonth() + 1
+    }-${date.getDate()}`;
+    element.BirthDate = dateString;
+  };
 
   const labelCustomerID = "CustomerID";
   const labelPetName = "Pet Name";
@@ -24,67 +38,54 @@ export default function PetForm({ onSubmit }) {
     "CustomerName"
   );
 
-  const form = useForm({
-    initialValues: {
-      PracticeID: "",
-      CustomerName: "",
-      Email: "",
-      PhoneNumber: "",
-    },
-
-    validate: {
-      CustomerID: (value) =>
-        typeof value !== "number" ? "ID must be a number" : null,
-      "Pet Name": (value) =>
-        value.length < 2 ? "Name must have at least 2 letters" : null,
-      Species: (value) =>
-        species.includes(value) ? null : "Invalid phone number",
-      "Birth Date": (value) =>
-        /^\d{2}.\d{2}.\d{4}/.test(value) ? null : "Invalid date",
-      "Is Alive": (value) =>
-        typeof value === "boolean" ? null : "Invalid IsAlive value",
-    },
-  });
+  console.log("element", element);
 
   return (
     <Box maw={340} mx="auto">
-      <form onSubmit={onSubmit}>
-        <Select
-          mt="sm"
-          label={labelCustomerID}
-          placeholder="Pick a Customer"
-          min={0}
-          max={99}
-          data={customerDropDownArray}
-          {...form.getInputProps(labelCustomerID)}
-        />
-        <TextInput
-          mt="sm"
-          label={labelPetName}
-          placeholder={labelPetName}
-          {...form.getInputProps("PetName")}
-        />
-        <TextInput
-          mt="sm"
-          label={labelSpecies}
-          placeholder={labelSpecies}
-          {...form.getInputProps(labelSpecies)}
-        />
-        <DateInput
-          mt="sm"
-          label={labelBirthDate}
-          placeholder={labelBirthDate}
-          {...form.getInputProps(labelBirthDate)}
-        />
-        <Checkbox
-          mt="sm"
-          label={labelIsAlive}
-          {...form.getInputProps(labelIsAlive)}
-        />
-        <Button type="submit" mt="sm">
-          Submit
-        </Button>
-      </form>
+      <Select
+        mt="sm"
+        label={labelCustomerID}
+        placeholder="Pick a Customer"
+        min={0}
+        max={99}
+        data={customerDropDownArray}
+        onChange={(value) => {
+          setElement({ ...element, CustomerID: parseInt(value) });
+        }}
+        value={element?.CustomerID.toString() || ""}
+      />
+      <TextInput
+        mt="sm"
+        label={labelPetName}
+        placeholder={labelPetName}
+        onChange={(e) => setElement({ ...element, PetName: e.target.value })}
+        value={element?.PetName || ""}
+      />
+      <TextInput
+        mt="sm"
+        label={labelSpecies}
+        placeholder={labelSpecies}
+        onChange={(e) => setElement({ ...element, Species: e.target.value })}
+        value={element?.Species || ""}
+      />
+      <DateInput
+        mt="sm"
+        label={labelBirthDate}
+        placeholder={labelBirthDate}
+        onChange={(value) => handleDateChange(value)}
+        value={new Date(element?.BirthDate) || ""}
+      />
+      <Checkbox mt="sm" label={labelIsAlive} />
+      <Button
+        onClick={() =>
+          isEditing
+            ? onEditSubmit(idColumnPet, GET_PATH_PETS, contextTypes.petData)
+            : onAddSubmit(idColumnPet, GET_PATH_PETS, contextTypes.petData)
+        }
+        mt="sm"
+      >
+        Submit
+      </Button>
     </Box>
   );
 }

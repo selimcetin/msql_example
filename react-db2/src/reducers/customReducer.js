@@ -22,17 +22,26 @@ export const customReducer = (state, action) => {
     case actionTypes.INIT_CONTEXT:
       return { ...state, [action.context]: action.payload };
     case actionTypes.ADD:
-      return [...state[action.context], action.payload];
+      return {
+        ...state,
+        [action.context]: [action.payload, ...state[action.context]],
+      };
     case actionTypes.UPDATE:
       return {
+        ...state,
         [action.context]: state[action.context]?.map((element) =>
-          element.id === action.payload.id ? action.payload : element
+          element[action.id] === action.payload[action.id]
+            ? action.payload
+            : element
         ),
       };
     case actionTypes.DELETE:
-      return [
-        state.context.filter((element) => element.id !== action.payload.id),
-      ];
+      return {
+        ...state,
+        [action.context]: state[action.context].filter(
+          (element) => element[action.id] !== action.payload[action.id]
+        ),
+      };
     default:
       return state;
   }

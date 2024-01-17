@@ -1,10 +1,11 @@
-export const getData = async (url, method) => {
+export const getData = async (url, method, body) => {
   try {
     const response = await fetch(url, {
       method,
       headers: {
         "Content-Type": "application/json",
       },
+      body,
     });
 
     if (!response.ok) {
@@ -15,4 +16,16 @@ export const getData = async (url, method) => {
   } catch (error) {
     console.log("Error:", error);
   }
+};
+
+export const postData = async (url, element) => {
+  getData(url, "POST", element);
+};
+
+export const putData = async (url, element) => {
+  getData(url, "PUT", element);
+};
+
+export const deleteData = async (url) => {
+  getData(url, "DELETE");
 };
