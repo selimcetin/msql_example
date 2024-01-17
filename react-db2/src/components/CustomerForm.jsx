@@ -6,10 +6,11 @@ import {
   getVeterinaryDataContext,
 } from "../controllers/contextController";
 import { useModalContext } from "../hooks/useModalContext";
-import { idColumnCustomer } from "../constants/idColumnName";
+import { idColumnCustomer } from "../constants/tableData";
+import { GET_PATH_CUSTOMERS } from "../constants/apiRequestPaths";
 
 export default function CustomerForm() {
-  const { state, dispatch } = useDataContext();
+  const { state } = useDataContext();
   const { onAddSubmit, onEditSubmit, element, setElement, isEditing } =
     useModalContext();
 
@@ -91,8 +92,8 @@ export default function CustomerForm() {
       <Button
         onClick={() =>
           isEditing
-            ? onEditSubmit(idColumnCustomer)
-            : onAddSubmit(idColumnCustomer)
+            ? onEditSubmit(idColumnCustomer, GET_PATH_CUSTOMERS)
+            : onAddSubmit(idColumnCustomer, GET_PATH_CUSTOMERS)
         }
         mt="sm"
       >

@@ -13,7 +13,7 @@ const ModalContextProvider = ({ children }) => {
   const [element, setElement] = useState(null);
   const [isEditing, setIsEditing] = useState(false);
 
-  const onAddSubmit = async (idColumnName) => {
+  const onAddSubmit = async (idColumnName, path) => {
     setIsEditing(false);
 
     dispatch({
@@ -23,23 +23,23 @@ const ModalContextProvider = ({ children }) => {
       id: idColumnName,
     });
 
-    await postData(GET_PATH_CUSTOMERS, JSON.stringify(element));
+    await postData(path, JSON.stringify(element));
 
     close();
   };
 
-  const onEditSubmit = async (idColumnName) => {
+  const onEditSubmit = async (idColumnName, path) => {
     dispatch({
       type: actionTypes.UPDATE,
-      context: contextTypes.customerData,
+      context: contextTypes.petData,
       payload: element,
       id: idColumnName,
     });
 
-    const { CustomerID, ...elementWithoutCustomerID } = element;
+    const { [idColumnName]: value, ...elementWithoutCustomerID } = element;
 
     await putData(
-      GET_PATH_CUSTOMERS + element.CustomerID,
+      path + element[idColumnName],
       JSON.stringify(elementWithoutCustomerID)
     );
 
